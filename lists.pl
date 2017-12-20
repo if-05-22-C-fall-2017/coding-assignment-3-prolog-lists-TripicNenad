@@ -28,3 +28,7 @@ addElement(L, B, [B|L]).
 
 hasLength([],0).
 hasLength([H|T],L+1) :-hasLength(T,L).
+
+remove(E, [], []).
+remove(E, [E|T], T).
+remove(E, [H|T], [H|NewTail]):-remove(E, T, NewTail).
