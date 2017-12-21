@@ -22,13 +22,19 @@ isMember(X, [_ | Tail]) :- isMember(X, Tail).
 concatenate([], L, L).
 concatenate([H|T], L, [H|ExtendedTail]) :- concatenate(T, L, ExtendedTail).
 
-prepend(L, E, [E|L]).
 
-addElement(L, B, [B|L]).
+prepend(L, ELEMENT, [ELEMENT|L]).
+
+addElement(L, ELEMENT, [L|ELEMENT]).
 
 hasLength([],0).
 hasLength([H|T],L+1) :-hasLength(T,L).
 
-remove(E, [], []).
-remove(E, [E|T], T).
-remove(E, [H|T], [H|NewTail]):-remove(E, T, NewTail).
+/*
+                                Remove
+1.) Prüfen ob gesuchtes Element Head ist wenn ja bleibt nur Tail übrig
+2.) Wir wissen nun das es nicht im Head ist, also so oft aufrufen bis das gesuchte Element nicht im Tail gefunden wird
+
+ */
+remove([X|T], X, T).
+remove([H|T], X, [H|T2]):-remove(T,X,T2).
